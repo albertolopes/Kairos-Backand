@@ -1,0 +1,16 @@
+com\allos\pomodoro\mapper\UsuarioMapper.class
+com\allos\pomodoro\service\exception\ObjectNotFoundException.class
+com\allos\pomodoro\dto\UsuarioDTO.class
+com\allos\pomodoro\mapper\BaseMapper.class
+com\allos\pomodoro\entity\Usuario.class
+com\allos\pomodoro\service\exception\DataIntegrityException.class
+com\allos\pomodoro\service\TarefasService.class
+com\allos\pomodoro\repository\UsuarioRepository.class
+com\allos\pomodoro\dto\TarefasDTO.class
+com\allos\pomodoro\controller\TarefasController.class
+com\allos\pomodoro\entity\Tarefas.class
+com\allos\pomodoro\entity\enums\StatusTarefa.class
+com\allos\pomodoro\PomodoroApplication.class
+com\allos\pomodoro\controller\UsuarioController.class
+com\allos\pomodoro\repository\TarefasRepository.class
+com\allos\pomodoro\service\UsuarioService.class
