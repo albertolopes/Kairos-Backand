@@ -1,10 +1,9 @@
 package com.allos.pomodoro.dto;
 
+import com.allos.pomodoro.entity.Usuario;
 import com.allos.pomodoro.entity.enums.StatusTarefa;
 import lombok.*;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode
@@ -14,4 +13,5 @@ public class TarefasDTO {
     private StatusTarefa status;
     private String descricao;
     private String tipoTarefa;
+    private Usuario usuario;
 }

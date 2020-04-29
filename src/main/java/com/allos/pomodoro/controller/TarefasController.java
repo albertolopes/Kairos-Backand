@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
@@ -22,7 +23,7 @@ public class TarefasController {
     }
 
     @PostMapping
-    public ResponseEntity<TarefasDTO> salvaTarefa(@RequestBody TarefasDTO dto){
+    public ResponseEntity<TarefasDTO> salvaTarefa(@Valid @RequestBody TarefasDTO dto){
         dto = service.salvar(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);
