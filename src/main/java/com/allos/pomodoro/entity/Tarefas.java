@@ -36,7 +36,7 @@ public class Tarefas implements Serializable {
     private StatusTarefa status;
 
     @ManyToOne
-    @JoinColumn(name = "ID")
+    @JoinColumn(name = "ID_USUARIO")
     private Usuario usuario;
 
     @ManyToMany
