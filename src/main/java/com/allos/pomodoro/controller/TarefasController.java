@@ -23,7 +23,7 @@ public class TarefasController {
     }
 
     @PostMapping
-    public ResponseEntity<TarefasDTO> salvaTarefa(@Valid @RequestBody TarefasDTO dto){
+    public ResponseEntity<TarefasDTO> salvaTarefa(@Valid @RequestBody TarefasDTO dto) throws Exception {
         dto = service.salvar(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);

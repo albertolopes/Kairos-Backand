@@ -5,13 +5,9 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode
@@ -22,7 +18,7 @@ public class Tarefas implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_TAREFA")
+    @Column(name = "ID_TAREFAS")
     private Long id;
 
     @Column(name = "TIPO_TAREFA")
@@ -40,8 +36,8 @@ public class Tarefas implements Serializable {
     private Usuario usuario;
 
     @ManyToMany
-    @JoinTable(name = "TB_TAREFAS_TEMPO",
-            joinColumns = @JoinColumn(name = "ID_TAREFA"),
+    @JoinTable( name = "TB_TAREFAS_TEMPO",
+            joinColumns = @JoinColumn(name = "ID_TAREFAS"),
             inverseJoinColumns = @JoinColumn(name = "ID_TEMPO")
     )
     private Set<Tempo> tempo = new HashSet<>();
