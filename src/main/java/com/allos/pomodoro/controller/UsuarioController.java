@@ -14,7 +14,7 @@ public class UsuarioController {
     private UsuarioService service;
 
     @RequestMapping(value = "/{id}", method= RequestMethod.GET)
-    public ResponseEntity<UsuarioDTO> buscarUsuario(@PathVariable("id") Long id) throws Exception {
+    public ResponseEntity<UsuarioDTO> buscarUsuario(@PathVariable("id") Long id){
         return ResponseEntity.ok(service.buscarUsuarioId(id).get());
     }
 
