@@ -18,7 +18,7 @@ public class TarefasController {
     private TarefasService service;
 
     @GetMapping(value ="/{id}")
-    public ResponseEntity<TarefasDTO> buscarTarefa(@PathVariable Long id){
+    public ResponseEntity<TarefasDTO> buscarTarefa(@Valid @PathVariable Long id){
         return ResponseEntity.ok(service.buscarTarefa(id).get());
     }
 
@@ -30,12 +30,12 @@ public class TarefasController {
     }
 
     @PutMapping
-    public ResponseEntity<TarefasDTO> atualizarTarefa(@RequestBody TarefasDTO dto){
+    public ResponseEntity<TarefasDTO> atualizarTarefa(@Valid @RequestBody TarefasDTO dto){
         return ResponseEntity.ok(service.atualizarTarefa(dto));
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> deletaTarefa(@PathVariable Long id){
+    public ResponseEntity<Void> deletaTarefa(@Valid @PathVariable Long id){
         service.deletaTarefa(id);
         return ResponseEntity.noContent().build();
     }
