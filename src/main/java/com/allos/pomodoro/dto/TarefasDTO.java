@@ -29,7 +29,7 @@ public class TarefasDTO implements Serializable {
     @Size(min=5, max=40, message = "O tamanho deve ser entre 5 e 40 caracteres")
     private String tipoTarefa;
 
-    private Usuario usuario;
+    private UsuarioDTO usuario;
 
     private Set<TempoDTO> tempo = new HashSet<>();
 }

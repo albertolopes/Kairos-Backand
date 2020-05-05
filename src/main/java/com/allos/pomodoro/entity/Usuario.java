@@ -5,10 +5,10 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode
 @Entity
 @Table(name = "TB_USUARIO")

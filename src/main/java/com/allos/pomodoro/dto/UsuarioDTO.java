@@ -4,13 +4,15 @@ import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode
-public class UsuarioDTO {
+public class UsuarioDTO implements Serializable {
+    private static final long serialVersionUID = 1;
 
     private Long id;
 
