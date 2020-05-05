@@ -12,6 +12,8 @@ import java.util.Set;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode
 public class TarefasDTO implements Serializable {
     private static final long serialVersionUID = 1;

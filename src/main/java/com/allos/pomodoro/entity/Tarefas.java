@@ -10,6 +10,8 @@ import java.util.Set;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode
 @Entity
 @Table(name = "TB_TAREFAS")
