@@ -5,7 +5,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,11 +23,15 @@ public class Tempo implements Serializable {
     @Column(name = "ID_TEMPO")
     private Long id;
 
-    @JsonFormat(pattern="dd/MM/yyyy HH:mm")
+    @JsonFormat(shape = JsonFormat.Shape.STRING,
+            pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'",
+            timezone = "GMT")
     @Column(name = "TEMPO_INICIAL")
-    private Date tempoInicial;
+    private Instant tempoInicial;
 
-    @JsonFormat(pattern="dd/MM/yyyy HH:mm")
+    @JsonFormat(shape = JsonFormat.Shape.STRING,
+            pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'",
+            timezone = "GMT")
     @Column(name = "TEMPO_FINAL")
-    private Date tempoFinal;
+    private Instant tempoFinal;
 }
