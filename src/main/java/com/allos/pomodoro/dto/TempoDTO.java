@@ -6,8 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.time.Duration;
-import java.time.Instant;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter
@@ -29,7 +29,13 @@ public class TempoDTO implements Serializable {
 
 
     public String getTempoDecorrido(){
-        long absSeconds = Math.abs(Duration.between(tempoInicial, tempoFinal).getSeconds());
+        ZoneId zone = ZoneId.of("America/Sao_Paulo");
+        ZonedDateTime horaAtual = ZonedDateTime.now(zone);
+        DateTimeFormatter formatador = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        ZonedDateTime hora = tempoFinal == null ?
+                ZonedDateTime.parse(horaAtual.format(formatador)) :
+                ZonedDateTime.ofInstant(tempoFinal, zone);
+        long absSeconds = Math.abs(Duration.between(tempoInicial, hora).getSeconds());
         String formatTempo = String.format("%d:%02d:%02d", absSeconds / 3600, (absSeconds % 3600) / 60, absSeconds % 60);
         return formatTempo;
     }
