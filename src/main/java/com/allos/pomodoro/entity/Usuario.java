@@ -1,5 +1,6 @@
 package com.allos.pomodoro.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,6 +27,7 @@ public class Usuario implements Serializable {
     @Column(name = "EMAIL")
     private String email;
 
+    @JsonIgnore
     @Column(name = "SENHA")
     private String senha;
 }

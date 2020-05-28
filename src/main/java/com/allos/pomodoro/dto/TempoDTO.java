@@ -29,7 +29,6 @@ public class TempoDTO implements Serializable {
             timezone = "GMT")
     private Instant tempoFinal;
 
-    @JsonIgnore
     private Tarefas tarefas;
 
     public String getTempoDecorrido(){

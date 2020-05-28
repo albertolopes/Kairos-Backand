@@ -1,5 +1,6 @@
 package com.allos.pomodoro.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.validation.constraints.NotEmpty;

@@ -8,6 +8,7 @@ import com.allos.pomodoro.exception.ObjectNotFoundException;
 import com.allos.pomodoro.exception.ObjectAlreadyExistsException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -21,6 +22,9 @@ public class UsuarioService {
     @Autowired
     private UsuarioMapper mapper;
 
+    @Autowired
+    private BCryptPasswordEncoder bCrypt;
+
     public Optional<UsuarioDTO> buscarUsuarioId(Long id){
         if(!repository.findById(id).isPresent()){
             throw new ObjectNotFoundException("Usuario não existe.");
@@ -29,10 +33,11 @@ public class UsuarioService {
     }
 
     public UsuarioDTO salvar(UsuarioDTO dto){
+        UsuarioDTO usuario = new UsuarioDTO(dto.getNome(), dto.getEmail(), bCrypt.encode(dto.getSenha()));
         if(repository.findByUsuario(dto.getNome()).isPresent() && dto != null){
             throw new ObjectAlreadyExistsException("Usuario já cadastrado.");
         }
-        return mapper.toDto(repository.save(mapper.toEntity(dto)));
+        return mapper.toDto(repository.save(mapper.toEntity(usuario)));
     }
 
     public UsuarioDTO atualizarUsuario(UsuarioDTO dto) {
