@@ -28,8 +28,8 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfo(
-                "POMODORO API",
-                "Esta API é utilizada para controlar as requisições REST do  projeto Pomodoro",
+                "TIME MANAGER API",
+                "Esta API é utilizada para controlar as requisições REST do projeto time manager",
                 "Versão 1.0",
                 "https://github.com/albertolopes/GestaoDoTempo",
                 new Contact("Alberto Lopes", "https://github.com/albertolopes", "albertolopes@mail.com"),
