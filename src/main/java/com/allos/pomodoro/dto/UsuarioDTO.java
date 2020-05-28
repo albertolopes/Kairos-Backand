@@ -23,4 +23,8 @@ public class UsuarioDTO implements Serializable {
     @NotEmpty(message = "Preenchimento obrigatorio")
     @Size(min=5, max=40, message = "O tamanho deve ser entre 5 e 40 caracteres")
     private String email;
+
+    @NotEmpty(message = "Preenchimento obrigatorio")
+    @Size(min=5, max=10, message = "O tamanho deve ser entre 5 e 10 caracteres")
+    private String senha;
 }

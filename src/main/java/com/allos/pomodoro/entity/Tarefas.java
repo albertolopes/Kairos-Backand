@@ -1,11 +1,14 @@
 package com.allos.pomodoro.entity;
 
 import com.allos.pomodoro.entity.enums.StatusTarefa;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -20,7 +23,7 @@ public class Tarefas implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_TAREFAS")
+    @Column(name = "ID_TAREFA")
     private Long id;
 
     @Column(name = "TIPO_TAREFA")
@@ -37,10 +40,14 @@ public class Tarefas implements Serializable {
     @JoinColumn(name = "ID_USUARIO")
     private Usuario usuario;
 
-    @ManyToMany
-    @JoinTable( name = "TB_TAREFAS_TEMPO",
-            joinColumns = @JoinColumn(name = "ID_TAREFAS"),
-            inverseJoinColumns = @JoinColumn(name = "ID_TEMPO")
-    )
-    private Set<Tempo> tempo = new HashSet<>();
+    @JsonIgnore
+    @OneToMany(mappedBy = "tarefas")
+    private List<Tempo> tempo = new ArrayList<>();
+
+//    @ManyToMany
+//    @JoinTable( name = "TB_TAREFAS_TEMPO",
+//            joinColumns = @JoinColumn(name = "ID_TAREFAS"),
+//            inverseJoinColumns = @JoinColumn(name = "ID_TEMPO")
+//    )
+//    private Set<Tempo> tempo = new HashSet<>();
 }

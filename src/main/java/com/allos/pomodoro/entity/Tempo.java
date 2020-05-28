@@ -1,12 +1,12 @@
 package com.allos.pomodoro.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -34,4 +34,8 @@ public class Tempo implements Serializable {
             timezone = "GMT")
     @Column(name = "TEMPO_FINAL")
     private Instant tempoFinal;
+    
+    @ManyToOne
+    @JoinColumn(name = "ID_TAREFA")
+    private Tarefas tarefas;
 }
