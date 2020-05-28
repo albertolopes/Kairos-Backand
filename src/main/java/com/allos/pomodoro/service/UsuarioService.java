@@ -33,11 +33,11 @@ public class UsuarioService {
     }
 
     public UsuarioDTO salvar(UsuarioDTO dto){
-        UsuarioDTO usuario = new UsuarioDTO(dto.getNome(), dto.getEmail(), bCrypt.encode(dto.getSenha()));
+        //UsuarioDTO usuario = usuario(dto.getNome(), dto.getEmail(), bCrypt.encode(dto.getSenha()));
         if(repository.findByUsuario(dto.getNome()).isPresent() && dto != null){
             throw new ObjectAlreadyExistsException("Usuario já cadastrado.");
         }
-        return mapper.toDto(repository.save(mapper.toEntity(usuario)));
+        return mapper.toDto(repository.save(mapper.toEntity(dto)));
     }
 
     public UsuarioDTO atualizarUsuario(UsuarioDTO dto) {

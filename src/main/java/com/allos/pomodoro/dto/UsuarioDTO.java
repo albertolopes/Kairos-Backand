@@ -1,11 +1,15 @@
 package com.allos.pomodoro.dto;
 
+import com.allos.pomodoro.entity.enums.Perfil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,6 +30,10 @@ public class UsuarioDTO implements Serializable {
     private String email;
 
     @NotEmpty(message = "Preenchimento obrigatorio")
-    @Size(min=5, max=10, message = "O tamanho deve ser entre 5 e 10 caracteres")
+    @Size(min=5, max=50, message = "O tamanho deve ser entre 5 e 10 caracteres")
     private String senha;
+
+    private Set<Integer> perfis = new HashSet<>();
+
+
 }

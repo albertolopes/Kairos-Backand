@@ -1,16 +1,14 @@
 package com.allos.pomodoro.entity.enums;
 
-public enum StatusTarefa {
+public enum Perfil {
 
-    CONCLUIDA(1,"Concluido"),
-    CANCELADA(2, "Cancelada"),
-    PENDENTE(3, "Pendente"),
-    EM_EXECUCAO(4, "Em execucao ");
+    ADMIN(1,"ROLE_ADMIN"),
+    USUARIO(2, "ROLE_USUARIO");
 
     private int cod;
     private String descricao;
 
-    private StatusTarefa(int cod, String descricao){
+    private Perfil(int cod, String descricao){
         this.cod = cod;
         this.descricao = descricao;
     }
@@ -23,11 +21,11 @@ public enum StatusTarefa {
         return descricao;
     }
 
-    public static StatusTarefa toEnum(Integer cod){
+    public static Perfil toEnum(Integer cod){
         if (cod == null){
             return null;
         }
-        for (StatusTarefa x : StatusTarefa.values()){
+        for (Perfil x : Perfil.values()){
             if (cod.equals(x.getCod())){
                 return x;
             }

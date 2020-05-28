@@ -1,10 +1,14 @@
 package com.allos.pomodoro.entity;
 
+import com.allos.pomodoro.entity.enums.Perfil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -18,7 +22,7 @@ public class Usuario implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_USUARIO")
+    @Column(name = "ID")
     private Long id;
 
     @Column(name = "NOME")
@@ -30,4 +34,16 @@ public class Usuario implements Serializable {
     @JsonIgnore
     @Column(name = "SENHA")
     private String senha;
+
+    @ElementCollection(fetch=FetchType.EAGER)
+    @CollectionTable(name="PERFIS")
+    private Set<Integer> perfis = new HashSet<>();
+
+    public  Set<Perfil> getPerfil(){
+        return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
+    }
+
+    public void addPerfil(Perfil perfil){
+        perfis.add(perfil.getCod());
+    }
 }

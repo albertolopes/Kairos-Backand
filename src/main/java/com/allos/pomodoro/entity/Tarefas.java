@@ -23,7 +23,7 @@ public class Tarefas implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_TAREFA")
+    @Column(name = "ID")
     private Long id;
 
     @Column(name = "TIPO_TAREFA")

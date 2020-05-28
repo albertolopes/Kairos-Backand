@@ -20,7 +20,7 @@ public class Tempo implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_TEMPO")
+    @Column(name = "ID")
     private Long id;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING,
