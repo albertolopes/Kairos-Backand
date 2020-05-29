@@ -1,5 +1,6 @@
 package com.allos.pomodoro.dto;
 
+import com.allos.pomodoro.entity.Tempo;
 import com.allos.pomodoro.entity.Usuario;
 import com.allos.pomodoro.entity.enums.StatusTarefa;
 import lombok.*;
@@ -7,7 +8,9 @@ import lombok.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter

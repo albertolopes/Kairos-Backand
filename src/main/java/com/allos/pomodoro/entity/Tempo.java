@@ -7,6 +7,8 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,7 +22,7 @@ public class Tempo implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
+    @Column(name = "TEMPO_ID")
     private Long id;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING,
@@ -34,8 +36,5 @@ public class Tempo implements Serializable {
             timezone = "GMT")
     @Column(name = "TEMPO_FINAL")
     private Instant tempoFinal;
-    
-    @ManyToOne
-    @JoinColumn(name = "ID_TAREFA")
-    private Tarefas tarefas;
+
 }

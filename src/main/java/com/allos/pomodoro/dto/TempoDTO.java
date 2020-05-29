@@ -1,8 +1,6 @@
 package com.allos.pomodoro.dto;
 
-import com.allos.pomodoro.entity.Tarefas;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,8 +26,6 @@ public class TempoDTO implements Serializable {
             pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'",
             timezone = "GMT")
     private Instant tempoFinal;
-
-    private Tarefas tarefas;
 
     public String getTempoDecorrido(){
         ZoneId zone = ZoneId.of("America/Sao_Paulo");

@@ -23,7 +23,7 @@ public class Tarefas implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
+    @Column(name = "TAREFAS_ID")
     private Long id;
 
     @Column(name = "TIPO_TAREFA")
@@ -36,18 +36,14 @@ public class Tarefas implements Serializable {
     @Enumerated(EnumType.STRING)
     private StatusTarefa status;
 
-    @ManyToOne
-    @JoinColumn(name = "ID_USUARIO")
+    @OneToOne
+    @JoinColumn(name = "USUARIO_ID")
     private Usuario usuario;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "tarefas")
-    private List<Tempo> tempo = new ArrayList<>();
-
-//    @ManyToMany
-//    @JoinTable( name = "TB_TAREFAS_TEMPO",
-//            joinColumns = @JoinColumn(name = "ID_TAREFAS"),
-//            inverseJoinColumns = @JoinColumn(name = "ID_TEMPO")
-//    )
-//    private Set<Tempo> tempo = new HashSet<>();
+    @ManyToMany
+    @JoinTable( name = "TB_TAREFAS_TEMPO",
+            joinColumns = @JoinColumn(name = "TAREFAS_ID"),
+            inverseJoinColumns = @JoinColumn(name = "TEMPO_ID")
+    )
+    private Set<Tempo> tempo = new HashSet<>();
 }

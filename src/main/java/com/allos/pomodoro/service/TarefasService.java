@@ -31,7 +31,7 @@ public class TarefasService {
     }
 
     public TarefasDTO atualizarTarefa(TarefasDTO dto){
-        if(repository.findById(dto.getId()).isPresent()){
+        if(!repository.findById(dto.getId()).isPresent()){
             throw new ObjectNotFoundException("Tarefa não existe.");
         }
         return mapper.toDto(repository.save(mapper.toEntity(dto)));
