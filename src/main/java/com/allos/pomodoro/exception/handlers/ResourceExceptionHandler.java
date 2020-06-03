@@ -1,9 +1,6 @@
 package com.allos.pomodoro.exception.handlers;
 
-import com.allos.pomodoro.exception.DataIntegrityException;
-import com.allos.pomodoro.exception.ObjectAlreadyExistsException;
-import com.allos.pomodoro.exception.ObjectNotFoundException;
-import com.allos.pomodoro.exception.ValidationError;
+import com.allos.pomodoro.exception.*;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,6 +47,14 @@ public class ResourceExceptionHandler {
             err.addError(x.getField(), x.getDefaultMessage());
         }
         return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(err);
+    }
+
+    @ExceptionHandler(AuthorizationException.class)
+    public ResponseEntity<StandardError> authorization(AuthorizationException e, HttpServletRequest request) {
+
+        StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.FORBIDDEN.value(),
+                e.getMessage(), e.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(err);
     }
 
 }
