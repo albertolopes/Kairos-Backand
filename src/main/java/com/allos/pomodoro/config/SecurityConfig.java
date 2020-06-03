@@ -1,6 +1,7 @@
 package com.allos.pomodoro.config;
 
 import com.allos.pomodoro.security.JWTAuthenticationFilter;
+import com.allos.pomodoro.security.JWTAuthorizationFilter;
 import com.allos.pomodoro.security.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -55,6 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .anyRequest().authenticated();
         //Permite ou não criação sessão de usuario
         http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
+        http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
