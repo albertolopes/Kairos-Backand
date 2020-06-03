@@ -35,5 +35,4 @@ public class UsuarioDTO implements Serializable {
 
     private Set<Integer> perfis = new HashSet<>();
 
-
 }

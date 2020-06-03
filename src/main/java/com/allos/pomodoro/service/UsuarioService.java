@@ -1,6 +1,7 @@
 package com.allos.pomodoro.service;
 
 import com.allos.pomodoro.dto.UsuarioDTO;
+import com.allos.pomodoro.entity.Usuario;
 import com.allos.pomodoro.mapper.UsuarioMapper;
 import com.allos.pomodoro.repository.UsuarioRepository;
 
@@ -33,11 +34,12 @@ public class UsuarioService {
     }
 
     public UsuarioDTO salvar(UsuarioDTO dto){
-        //UsuarioDTO usuario = usuario(dto.getNome(), dto.getEmail(), bCrypt.encode(dto.getSenha()));
         if(repository.findByUsuario(dto.getNome()).isPresent() && dto != null){
             throw new ObjectAlreadyExistsException("Usuario já cadastrado.");
         }
-        return mapper.toDto(repository.save(mapper.toEntity(dto)));
+        UsuarioDTO usuario = new UsuarioDTO(null, dto.getNome(), dto.getEmail(),
+                bCrypt.encode(dto.getSenha()), dto.getPerfis());
+        return mapper.toDto(repository.save(mapper.toEntity(usuario)));
     }
 
     public UsuarioDTO atualizarUsuario(UsuarioDTO dto) {
