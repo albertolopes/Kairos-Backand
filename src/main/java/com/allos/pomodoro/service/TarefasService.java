@@ -1,9 +1,13 @@
 package com.allos.pomodoro.service;
 
 import com.allos.pomodoro.dto.TarefasDTO;
+import com.allos.pomodoro.entity.enums.Perfil;
+import com.allos.pomodoro.exception.AuthorizationException;
 import com.allos.pomodoro.exception.ObjectNotFoundException;
 import com.allos.pomodoro.mapper.TarefasMapper;
 import com.allos.pomodoro.repository.TarefasRepository;
+import com.allos.pomodoro.security.UserSecurity;
+import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +27,13 @@ public class TarefasService {
     }
 
     public Optional<TarefasDTO> buscarTarefa(Long id) {
+
+        UserSecurity userSecurity = UserSecurityService.authenticate();
+
+        if(userSecurity == null || !userSecurity.hasRole(Perfil.ADMIN) && !id.equals(userSecurity.getId())){
+            throw new AuthorizationException("Acesso negado");
+        }
+
         if(!repository.findById(id).isPresent()){
             throw new ObjectNotFoundException("Tarefa não existe.");
         }

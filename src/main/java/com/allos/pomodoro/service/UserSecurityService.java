@@ -10,6 +10,5 @@ public class UserSecurityService {
         } catch (Exception e){
             return null;
         }
-
     }
 }

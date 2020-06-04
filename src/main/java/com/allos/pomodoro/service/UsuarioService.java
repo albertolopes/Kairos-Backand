@@ -43,6 +43,7 @@ public class UsuarioService {
     }
 
     public UsuarioDTO salvar(UsuarioDTO dto){
+
         if(repository.findByUsuario(dto.getNome()).isPresent() && dto != null){
             throw new ObjectAlreadyExistsException("Usuario já cadastrado.");
         }
@@ -52,6 +53,7 @@ public class UsuarioService {
     }
 
     public UsuarioDTO atualizarUsuario(UsuarioDTO dto) {
+
         if(!repository.findById(dto.getId()).isPresent()){
             throw new ObjectNotFoundException("Id do usuario não existe.");
         }
