@@ -10,23 +10,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.Arrays;
-
 @SpringBootApplication
-public class PomodoroApplication implements CommandLineRunner {
-
-	@Autowired
-	private UsuarioRepository usuarioRepository;
-
-	@Autowired
-	private TarefasRepository tarefasRepository;
+public class PomodoroApplication{
 
 	public static void main(String[] args) {
 		SpringApplication.run(PomodoroApplication.class, args);
-	}
-
-	@Override
-	public void run(String... args) throws Exception{
 	}
 
 }

@@ -41,6 +41,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/tempo/**"
     };
 
+    private static final String[] PUBLIC_MATCHERS_POST = {
+            "/auth/forgot/**"
+    };
+
     private static final String[] PUBLIC_MATCHERS_GET = {
 
     };
@@ -55,6 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
             .antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
             .antMatchers(PUBLIC_MATCHERS).permitAll()
+            .antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
             .anyRequest().authenticated();
         //Permite ou não criação sessão de usuario
         http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
