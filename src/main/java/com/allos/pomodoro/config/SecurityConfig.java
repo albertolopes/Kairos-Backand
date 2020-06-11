@@ -37,16 +37,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private Environment env;
 
     private static final String[] PUBLIC_MATCHERS = {
-                "/v2/api-docs",
-                "/configuration/ui",
-                "/swagger-resources/**",
-                "/configuration/security",
-                "/swagger-ui.html",
-                "/webjars/**",
-                "/auth/forgot/**"
+        "/v2/api-docs",
+        "/configuration/ui",
+        "/swagger-resources/**",
+        "/configuration/security",
+        "/swagger-ui.html",
+        "/webjars/**"
+
     };
 
     private static final String[] PUBLIC_MATCHERS_POST = {
+            "/auth/forgot/**",
             "/usuarios/**"
     };
 
