@@ -1,15 +1,12 @@
 package com.allos.pomodoro.entity;
 
 import com.allos.pomodoro.entity.enums.StatusTarefa;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.time.Instant;
 
 @Getter
 @Setter
@@ -36,14 +33,26 @@ public class Tarefas implements Serializable {
     @Enumerated(EnumType.STRING)
     private StatusTarefa status;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING,
+            pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'",
+            timezone = "GMT")
+    @Column(name = "DATA_TAREFA")
+    private Instant dataTarefa;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING,
+            pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'",
+            timezone = "GMT")
+    @Column(name = "TEMPO_INICIAL")
+    private Instant tempoInicial;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING,
+            pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'",
+            timezone = "GMT")
+    @Column(name = "TEMPO_FINAL")
+    private Instant tempoFinal;
+
     @OneToOne
     @JoinColumn(name = "USUARIO_ID")
     private Usuario usuario;
 
-    @ManyToMany
-    @JoinTable( name = "TB_TAREFAS_TEMPO",
-            joinColumns = @JoinColumn(name = "TAREFAS_ID"),
-            inverseJoinColumns = @JoinColumn(name = "TEMPO_ID")
-    )
-    private Set<Tempo> tempo = new HashSet<>();
 }

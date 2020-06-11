@@ -44,8 +44,8 @@ public class UsuarioService {
 
     public UsuarioDTO salvar(UsuarioDTO dto){
 
-        if(repository.findByUsuario(dto.getNome()).isPresent() && dto != null){
-            throw new ObjectAlreadyExistsException("Usuario já cadastrado.");
+        if(repository.findByUsuario(dto.getNome(), dto.getEmail()).isPresent()  && dto != null){
+            throw new ObjectAlreadyExistsException("Usuario ou email já cadastrado.");
         }
         UsuarioDTO usuario = new UsuarioDTO(null, dto.getNome(), dto.getEmail(),
                 bCrypt.encode(dto.getSenha()), dto.getPerfis());
@@ -54,15 +54,28 @@ public class UsuarioService {
 
     public UsuarioDTO atualizarUsuario(UsuarioDTO dto) {
 
+        UserSecurity userSecurity = UserSecurityService.authenticate();
+        if(userSecurity == null || !userSecurity.hasRole(Perfil.ADMIN) && !dto.getId().equals(userSecurity.getId())){
+            throw new AuthorizationException("Acesso Negado");
+        }
+
         if(!repository.findById(dto.getId()).isPresent()){
             throw new ObjectNotFoundException("Id do usuario não existe.");
         }
         UsuarioDTO usuario = new UsuarioDTO(dto.getId(), dto.getNome(), dto.getEmail(),
                 bCrypt.encode(dto.getSenha()), dto.getPerfis());
+
         return mapper.toDto(repository.save(mapper.toEntity(usuario)));
     }
 
     public void deletaUsuario(Long id){
+
+        UserSecurity userSecurity = UserSecurityService.authenticate();
+
+        if(userSecurity == null || !userSecurity.hasRole(Perfil.ADMIN) && !id.equals(userSecurity.getId())){
+            throw new AuthorizationException("Acesso Negado");
+        }
+
         if(!repository.findById(id).isPresent()){
             throw new ObjectNotFoundException("Usuario não existe.");
         }

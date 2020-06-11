@@ -30,7 +30,6 @@ public class UsuarioDTO implements Serializable {
     private String email;
 
     @NotEmpty(message = "Preenchimento obrigatorio")
-    @Size(min=5, max=50, message = "O tamanho deve ser entre 5 e 10 caracteres")
     private String senha;
 
     private Set<Integer> perfis = new HashSet<>();
