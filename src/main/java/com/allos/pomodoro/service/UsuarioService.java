@@ -29,6 +29,22 @@ public class UsuarioService {
     @Autowired
     private BCryptPasswordEncoder bCrypt;
 
+    public UsuarioDTO buscar(){
+
+        UserSecurity userSecurity = UserSecurityService.authenticate();
+        if(userSecurity == null || !userSecurity.hasRole(Perfil.ADMIN)){
+            throw new AuthorizationException("Acesso Negado");
+        }
+
+        UsuarioDTO user = mapper.toDto(repository.findById(userSecurity.getId()).get());
+
+        if(user == null){
+            throw new ObjectNotFoundException("Usuario não existe.");
+        }
+
+        return user;
+    }
+
     public Optional<UsuarioDTO> buscarUsuarioId(Long id){
 
         UserSecurity userSecurity = UserSecurityService.authenticate();

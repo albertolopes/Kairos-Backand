@@ -18,7 +18,13 @@ public class UsuarioController {
     @Autowired
     private UsuarioService service;
 
-    @ApiOperation("Busca um único usuario")
+    @ApiOperation("Busca o usuario logado")
+    @GetMapping
+    public ResponseEntity<UsuarioDTO> buscarUsuario(){
+        return ResponseEntity.ok(service.buscar());
+    }
+
+    @ApiOperation("Busca um único usuario pelo Id")
     @GetMapping(value = "/{id}")
     public ResponseEntity<UsuarioDTO> buscarUsuario(@Valid @PathVariable("id") Long id){
         return ResponseEntity.ok(service.buscarUsuarioId(id).get());
