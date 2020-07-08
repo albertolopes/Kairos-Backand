@@ -11,7 +11,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/tarefas")
@@ -21,14 +20,7 @@ public class TarefasController {
     @Autowired
     private TarefasService service;
 
-    @ApiOperation("Busca tarefas do usuario logado")
-    @GetMapping
-    public ResponseEntity<List<TarefasDTO>> buscar() {
-        List<TarefasDTO> list = service.buscar();
-        return ResponseEntity.ok().body(list);
-    }
-
-    @ApiOperation("Busca uma tarefa pelo id")
+    @ApiOperation("Busca uma tarefa")
     @GetMapping(value ="/{id}")
     public ResponseEntity<TarefasDTO> buscarTarefa(@Valid @PathVariable Long id){
         return ResponseEntity.ok(service.buscarTarefa(id).get());
