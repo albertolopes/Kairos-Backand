@@ -29,6 +29,22 @@ public class UsuarioService {
     @Autowired
     private BCryptPasswordEncoder bCrypt;
 
+    public UsuarioDTO buscar(){
+
+        UserSecurity userSecurity = UserSecurityService.authenticate();
+        if(userSecurity == null || !userSecurity.hasRole(Perfil.ADMIN)){
+            throw new AuthorizationException("Acesso Negado");
+        }
+
+        UsuarioDTO user = mapper.toDto(repository.findById(userSecurity.getId()).get());
+
+        if(user == null){
+            throw new ObjectNotFoundException("Usuario não existe.");
+        }
+
+        return user;
+    }
+
     public Optional<UsuarioDTO> buscarUsuarioId(Long id){
 
         UserSecurity userSecurity = UserSecurityService.authenticate();
@@ -59,13 +75,18 @@ public class UsuarioService {
             throw new AuthorizationException("Acesso Negado");
         }
 
-        if(!repository.findById(dto.getId()).isPresent()){
-            throw new ObjectNotFoundException("Id do usuario não existe.");
-        }
-        UsuarioDTO usuario = new UsuarioDTO(dto.getId(), dto.getNome(), dto.getEmail(),
-                bCrypt.encode(dto.getSenha()), dto.getPerfis());
+        Optional<Usuario> userOpt = repository.findById(dto.getId());
+        Usuario user = userOpt.get();
 
-        return mapper.toDto(repository.save(mapper.toEntity(usuario)));
+        if(user == null){
+            throw new ObjectNotFoundException("Id do usuario não existe.");
+        } else {
+            String encryptPassword = encryptedPassword(user, dto);
+            UsuarioDTO usuario = new UsuarioDTO(dto.getId(), dto.getNome(), dto.getEmail(),
+                    encryptPassword, dto.getPerfis());
+
+            return mapper.toDto(repository.save(mapper.toEntity(usuario)));
+        }
     }
 
     public void deletaUsuario(Long id){
@@ -80,5 +101,14 @@ public class UsuarioService {
             throw new ObjectNotFoundException("Usuario não existe.");
         }
         repository.deleteById(id);
+    }
+
+    public String encryptedPassword(Usuario user, UsuarioDTO dto){
+
+        if(user.getSenha() != dto.getSenha() & dto.getSenha().length() <= 10){
+            return bCrypt.encode(dto.getSenha());
+        } else {
+            return user.getSenha();
+        }
     }
 }
