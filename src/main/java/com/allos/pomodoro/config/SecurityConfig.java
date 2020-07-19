@@ -55,6 +55,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     };
 
+    private static final String[] PUBLIC_MATCHERS_DELETE= {
+
+    };
+
+    private static final String[] PUBLIC_MATCHERS_PUT = {
+
+    };
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         if (Arrays.asList(env.getActiveProfiles()).contains("test")) {
@@ -81,7 +89,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     CorsConfigurationSource corsConfigurationSource(){
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+        CorsConfiguration configuration = new CorsConfiguration().applyPermitDefaultValues();
+        configuration.setAllowedMethods(Arrays.asList("POST", "GET", "PUT", "DELETE", "OPTIONS"));
+        source.registerCorsConfiguration("/**", configuration);
         return source;
     }
 
