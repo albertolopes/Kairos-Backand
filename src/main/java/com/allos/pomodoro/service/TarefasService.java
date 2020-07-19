@@ -81,7 +81,7 @@ public class TarefasService {
         UsuarioDTO usuarioDto = usuarioService.buscar();
 
         TarefasDTO tarefa = new TarefasDTO(
-                null, dto.getStatus(), dto.getDescricao(), dto.getTipoTarefa(),
+                dto.getId(), dto.getStatus(),dto.getTipoTarefa(), dto.getDescricao(),
                 dto.getTempoInicial(), dto.getTempoFinal(), usuarioDto);
 
         return mapper.toDto(repository.save(mapper.toEntity(tarefa)));

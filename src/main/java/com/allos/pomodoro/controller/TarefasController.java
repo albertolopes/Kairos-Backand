@@ -43,7 +43,7 @@ public class TarefasController {
     }
 
     @ApiOperation("Atualiza uma tarefa")
-    @PutMapping(value = "/{id}")
+    @PutMapping
     public ResponseEntity<TarefasDTO> atualizarTarefa(@Valid @RequestBody TarefasDTO dto){
         return ResponseEntity.ok(service.atualizarTarefa(dto));
     }

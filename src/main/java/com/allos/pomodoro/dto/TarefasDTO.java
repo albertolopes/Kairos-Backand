@@ -27,12 +27,12 @@ public class TarefasDTO implements Serializable {
 
     private StatusTarefa status;
 
-    @Size(min=5, max=120, message = "O tamanho deve ser entre 5 e 120 caracteres")
-    private String descricao;
-
     @NotEmpty(message = "Preenchimento obrigatorio")
-    @Size(min=5, max=40, message = "O tamanho deve ser entre 5 e 40 caracteres")
+    @Size(min=0, max=40, message = "O tamanho deve ser entre 5 e 40 caracteres")
     private String tipoTarefa;
+
+    @Size(min=0, max=120, message = "O tamanho deve ser entre 5 e 120 caracteres")
+    private String descricao;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING,
             pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'",
@@ -46,16 +46,14 @@ public class TarefasDTO implements Serializable {
 
     private UsuarioDTO usuario;
 
-//    public String getTempoDecorrido(){
-//        ZoneId zone = ZoneId.of("America/Sao_Paulo");
-//        ZonedDateTime horaAtual = ZonedDateTime.now(zone);
-//        ZonedDateTime hora = tempoFinal == null ?
-//                ZonedDateTime.parse(horaAtual.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'"))) :
-//                ZonedDateTime.ofInstant(tempoFinal, zone);
-//        long absSeconds = Math.abs(Duration.between(tempoInicial, hora).getSeconds());
-//        String formatTempo = String.format("%d:%02d:%02d", absSeconds / 3600, (absSeconds % 3600) / 60, absSeconds % 60);
-//        return formatTempo;
-//    }
-
-
+    public String getTempoDecorrido(){
+        ZoneId zone = ZoneId.of("America/Sao_Paulo");
+        ZonedDateTime horaAtual = ZonedDateTime.now(zone);
+        ZonedDateTime hora = tempoFinal == null ?
+                ZonedDateTime.parse(horaAtual.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'"))) :
+                ZonedDateTime.ofInstant(tempoFinal, zone);
+        long absSeconds = Math.abs(Duration.between(tempoInicial, hora).getSeconds());
+        String formatTempo = String.format("%d:%02d:%02d", absSeconds / 3600, (absSeconds % 3600) / 60, absSeconds % 60);
+        return formatTempo;
+    }
 }
