@@ -28,10 +28,9 @@ public class TarefasDTO implements Serializable {
     private StatusTarefa status;
 
     @NotEmpty(message = "Preenchimento obrigatorio")
-    @Size(min=0, max=40, message = "O tamanho deve ser entre 5 e 40 caracteres")
+    @Size(min=0, max=30, message = "O tamanho deve ser entre 5 e 40 caracteres")
     private String tipoTarefa;
 
-    @Size(min=0, max=120, message = "O tamanho deve ser entre 5 e 120 caracteres")
     private String descricao;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING,
