@@ -1,16 +1,15 @@
 package com.allos.pomodoro.controller;
 
 import com.allos.pomodoro.dto.TarefasDTO;
+import com.allos.pomodoro.mapper.TarefasMapper;
 import com.allos.pomodoro.service.TarefasService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -21,31 +20,32 @@ public class TarefasController {
     @Autowired
     private TarefasService service;
 
-    @ApiOperation("Busca tarefas do usuario logado")
-    @GetMapping
-    public ResponseEntity<List<TarefasDTO>> buscar() {
-        List<TarefasDTO> list = service.buscar();
-        return ResponseEntity.ok().body(list);
-    }
-
-    @ApiOperation("Busca uma tarefa pelo id")
-    @GetMapping(value ="/{id}")
-    public ResponseEntity<TarefasDTO> buscarTarefa(@Valid @PathVariable Long id){
-        return ResponseEntity.ok(service.buscarTarefa(id).get());
-    }
+    @Autowired
+    private TarefasMapper mapper;
 
     @ApiOperation("Salva uma tarefa")
     @PostMapping
-    public ResponseEntity<TarefasDTO> salvaTarefa(@Valid @RequestBody TarefasDTO dto) throws Exception {
-        dto = service.salvar(dto);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
-        return ResponseEntity.created(uri).body(dto);
+    public ResponseEntity<TarefasDTO> salvaTarefa(@Valid @RequestBody TarefasDTO dto) {
+        return ResponseEntity.ok(mapper.toDto(service.salvar(mapper.toEntity(dto))));
     }
 
     @ApiOperation("Atualiza uma tarefa")
     @PutMapping
     public ResponseEntity<TarefasDTO> atualizarTarefa(@Valid @RequestBody TarefasDTO dto){
-        return ResponseEntity.ok(service.atualizarTarefa(dto));
+        return ResponseEntity.ok(mapper.toDto(service.atualizarTarefa(mapper.toEntity(dto))));
+    }
+
+
+    @ApiOperation("Busca tarefas do usuario logado")
+    @GetMapping
+    public ResponseEntity<List<TarefasDTO>> buscar() {
+        return ResponseEntity.ok().body(mapper.toDto(service.buscar()));
+    }
+
+    @ApiOperation("Busca uma tarefa pelo id")
+    @GetMapping(value ="/{id}")
+    public ResponseEntity<TarefasDTO> buscarTarefa(@Valid @PathVariable Long id){
+        return ResponseEntity.ok(mapper.toDto(service.buscarTarefa(id)));
     }
 
     @ApiOperation("Deleta uma tarefa")

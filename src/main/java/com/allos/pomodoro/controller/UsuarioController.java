@@ -1,6 +1,7 @@
 package com.allos.pomodoro.controller;
 
 import com.allos.pomodoro.dto.UsuarioDTO;
+import com.allos.pomodoro.mapper.UsuarioMapper;
 import com.allos.pomodoro.service.UsuarioService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/usuarios")
@@ -18,28 +20,31 @@ public class UsuarioController {
     @Autowired
     private UsuarioService service;
 
+    @Autowired
+    private UsuarioMapper mapper;
+
     @ApiOperation("Busca o usuario logado")
     @GetMapping
     public ResponseEntity<UsuarioDTO> buscarUsuario(){
-        return ResponseEntity.ok(service.buscar());
+        return ResponseEntity.ok(mapper.toDto(service.buscar()));
     }
 
     @ApiOperation("Busca um único usuario pelo Id")
     @GetMapping(value = "/{id}")
-    public ResponseEntity<UsuarioDTO> buscarUsuario(@Valid @PathVariable("id") Long id){
-        return ResponseEntity.ok(service.buscarUsuarioId(id).get());
+    public ResponseEntity<UsuarioDTO> buscarUsuarioPorId(@Valid @PathVariable("id") Long id){
+        return ResponseEntity.ok(mapper.toDto(service.buscarUsuarioId(id)));
     }
 
     @ApiOperation("Salva um usuario")
     @PostMapping
-    public UsuarioDTO salvaUsuario(@Valid @RequestBody UsuarioDTO dto){
-        return service.salvar(dto);
+    public ResponseEntity<UsuarioDTO> salvaUsuario(@Valid @RequestBody UsuarioDTO dto){
+        return ResponseEntity.ok(mapper.toDto(service.salvar(mapper.toEntity(dto))));
     }
 
     @ApiOperation("Edita um usuario")
-    @PutMapping(value = "/{id}")
+    @PutMapping
     public ResponseEntity<UsuarioDTO> update(@Valid @RequestBody UsuarioDTO dto){
-        return ResponseEntity.ok(service.atualizarUsuario(dto));
+        return ResponseEntity.ok(mapper.toDto(service.atualizarUsuario(mapper.toEntity(dto))));
     }
 
     @ApiOperation("Deleta um usuario")
