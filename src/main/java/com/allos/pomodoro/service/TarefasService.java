@@ -1,6 +1,7 @@
 package com.allos.pomodoro.service;
 
 import com.allos.pomodoro.entity.Tarefas;
+import com.allos.pomodoro.entity.Usuario;
 import com.allos.pomodoro.entity.enums.Perfil;
 import com.allos.pomodoro.exception.AuthorizationException;
 import com.allos.pomodoro.exception.ObjectNotFoundException;
@@ -45,15 +46,19 @@ public class TarefasService {
     }
 
     public Tarefas atualizarTarefa(Tarefas tarefas){
-        verificaUsuarioLogado(tarefas.getId());
+
+        Usuario usuario = usuarioService.buscar();
+
         validarTarefa(tarefas.getId());
-        tarefas.setUsuario(usuarioService.buscar());
+        verificaUsuarioLogado(usuario.getId());
+
+        tarefas.setUsuario(usuario);
 
         return repository.save(tarefas);
     }
 
     public void deletaTarefa(Long id) {
-        verificaUsuarioLogado(id);
+        verificaUsuarioLogado(usuarioService.buscar().getId());
         validarTarefa(id);
         repository.deleteById(id);
     }
